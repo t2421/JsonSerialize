@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Runtime/Online/HTTP/Public/Http.h"
 #include "HttpRequestActor.generated.h"
 
 UCLASS()
@@ -14,13 +15,13 @@ class AHttpRequestActor : public AActor
 public:	
 	// Sets default values for this actor's properties
 	AHttpRequestActor();
+	FHttpModule* Http;
+	UFUNCTION(BlueprintCallable, Category = "Http")
+	void Request();
+	void OnResponseReceive(FHttpRequestPtr Request,FHttpResponsePtr Response,bool bWasSuccessful);
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
 
 };
